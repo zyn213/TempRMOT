@@ -1,0 +1,4 @@
+# ninja log v5
+0	4122	1696777812966006170	/home/zyn/Code/RMOT/models/ops/build/temp.linux-x86_64-cpython-37/home/zyn/Code/RMOT/models/ops/src/cpu/ms_deform_attn_cpu.o	52440dc8adee9fca
+0	12157	1696777820994254682	/home/zyn/Code/RMOT/models/ops/build/temp.linux-x86_64-cpython-37/home/zyn/Code/RMOT/models/ops/src/cuda/ms_deform_attn_cuda.o	3232315e8baa5dab
+0	22595	1696777831422577168	/home/zyn/Code/RMOT/models/ops/build/temp.linux-x86_64-cpython-37/home/zyn/Code/RMOT/models/ops/src/vision.o	c668e138af5b4bd2
