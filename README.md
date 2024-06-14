@@ -62,16 +62,23 @@ sh evaluate_rmot.sh
 
 | **Method** | **Dataset** | **HOTA** | **DetA** | **AssA** | **DetRe** | **DetPr** | **AssRe** | **AssRe** | **LocA** |                                           **URL**                                           |
 |:----------:|:-----------:|:--------:|:--------:|:--------:|:---------:|:---------:|:---------:|-----------|----------| :-----------------------------------------------------------------------------------------: |
-| TempRMOT  | Refer-KITTI |  35.04   |  22.97   |  53.58   |   34.23   |   40.41   |   59.50   | 81.29     | 91.19    | [model](https://github.com/zyn213/TempRMOT/releases/download/v1.0/checkpoint_rk.pth) |
+| TempRMOT  | Refer-KITTI |  52.21   |  40.95   |  66.75   |   55.65   |   59.25   |   71.82   | 87.76     | 90.40    | [model](https://github.com/zyn213/TempRMOT/releases/download/v1.0/checkpoint_rk.pth) |
 
 ### Ref-KITTI-V2
 | **Method** | **Dataset** | **HOTA** | **DetA** | **AssA** | **DetRe** | **DetPr** | **AssRe** | **AssRe** | **LocA** |                                           **URL**                                           |
 |:----------:|:-----------:|:--------:|:--------:|:--------:|:---------:|:---------:|:---------:|-----------|----------| :-----------------------------------------------------------------------------------------: |
-| TempRMOT  | Refer-KITTI-V2 |  52.21   |  40.95   |  66.75   |   55.65   |   59.25   |   71.82   | 87.76     | 90.40    | [model](https://github.com/wudongming97/RMOT/releases/download/v1.0/checkpoint_rk2.pth) |
+| TempRMOT  | Refer-KITTI-V2|  35.04   |  22.97   |  53.58   |   34.23   |   40.41   |   59.50   | 81.29     | 91.19    |  [model](https://github.com/wudongming97/RMOT/releases/download/v1.0/checkpoint_rk2.pth) |
 
 
 ## Citation
-
+```bibtex
+@article{zhang2024bootstrapping,
+  title={Bootstrapping Referring Multi-Object Tracking},
+  author={Zhang, Yani and Wu, Dongming and Han, Wencheng and Dong, Xingping},
+  journal={arXiv preprint arXiv:2406.05039},
+  year={2024}
+}
+```
 
 ## Acknowledgements
 We thank the authors that open the following projects. 
