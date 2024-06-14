@@ -67,7 +67,7 @@ sh evaluate_rmot.sh
 ### Ref-KITTI-V2
 | **Method** | **Dataset** | **HOTA** | **DetA** | **AssA** | **DetRe** | **DetPr** | **AssRe** | **AssRe** | **LocA** |                                           **URL**                                           |
 |:----------:|:-----------:|:--------:|:--------:|:--------:|:---------:|:---------:|:---------:|-----------|----------| :-----------------------------------------------------------------------------------------: |
-| TempRMOT  | Refer-KITTI-V2|  35.04   |  22.97   |  53.58   |   34.23   |   40.41   |   59.50   | 81.29     | 91.19    |  [model](https://github.com/wudongming97/RMOT/releases/download/v1.0/checkpoint_rk2.pth) |
+| TempRMOT  | Refer-KITTI-V2|  35.04   |  22.97   |  53.58   |   34.23   |   40.41   |   59.50   | 81.29     | 90.07   |  [model](https://github.com/wudongming97/RMOT/releases/download/v1.0/checkpoint_rk2.pth) |
 
 
 ## Citation
