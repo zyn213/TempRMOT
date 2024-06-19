@@ -1,5 +1,5 @@
 PRETRAIN=/home/zyn/Data/MOTR/r50_deformable_detr_plus_iterative_bbox_refinement-checkpoint.pth
-EXP_DIR=default
+EXP_DIR=default_rk
 OUT='/data_2/zyn/Results/TempRMOT'
 TRAIN_LOG_FILE="$OUT/${EXP_DIR}/train_log.txt"
 PID_FILE="$OUT/${EXP_DIR}/train_pid.txt"
@@ -18,7 +18,7 @@ nohup python3  -m torch.distributed.launch --nproc_per_node=4 --master_port 2950
    --lr_backbone 1e-5 \
    --pretrained ${PRETRAIN}\
    --output_dir exps/${EXP_DIR} \
-   --save_dir "$OUT/${EXP_DIR}" \
+   --save_dir exps/${EXP_DIR} \
    --batch_size 1 \
    --sample_mode random_interval \
    --sample_interval 1 \

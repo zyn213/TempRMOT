@@ -1,6 +1,6 @@
 PRETRAIN=/home/zyn/Data/MOTR/r50_deformable_detr_plus_iterative_bbox_refinement-checkpoint.pth
 EXP_DIR=default
-OUT='/data_2/zyn/Results4RK2/TempRMOT'
+OUT='/home/zyn/Code/TempRMOT'
 TRAIN_LOG_FILE="$OUT/${EXP_DIR}/train_log.txt"
 PID_FILE="$OUT/${EXP_DIR}/train_pid.txt"
 
@@ -18,7 +18,7 @@ nohup python3  -m torch.distributed.launch --nproc_per_node=4 --master_port 2950
    --lr_backbone 1e-5 \
    --pretrained ${PRETRAIN}\
    --output_dir exps/${EXP_DIR} \
-   --save_dir "$OUT/${EXP_DIR}" \
+   --save_dir exps/${EXP_DIR} \
    --batch_size 1 \
    --sample_mode random_interval \
    --sample_interval 1 \
@@ -30,7 +30,7 @@ nohup python3  -m torch.distributed.launch --nproc_per_node=4 --master_port 2950
    --random_drop 0.1 \
    --fp_ratio 0.3 \
    --query_interaction_layer QIM \
-   --data_txt_path_train ./datasets/data_path/refer-kitti.train \
+   --data_txt_path_train ./datasets/data_path/refer-kitti-v2.train \
    --hist_len 5 \
    --refer_loss_coef 2 >"$TRAIN_LOG_FILE" & echo $! >"$PID_FILE"
 

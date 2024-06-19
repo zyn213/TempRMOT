@@ -26,5 +26,5 @@ nohup python3 inference.py \
 --query_interaction_layer QIM \
 --extra_track_attn \
 --hist_len 8 \
---resume /data_2/zyn/Results4RK2/TempRMOT/default/checkpoint0049.pth \
---output_dir /data_2/zyn/Results4RK2/TempRMOT/default >"/data_2/zyn/Results4RK2/TempRMOT/default/test_log_49.txt" & echo $! >"/data_2/zyn/Results4RK2/TempRMOT/default/test_pid_49.txt"
+--resume exps/default/checkpoint0049.pth \
+--output_dir exps/default >"exps/default/test_log.txt" & echo $! >"exps/default/test_pid.txt"

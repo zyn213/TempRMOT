@@ -14,7 +14,8 @@ Bootstrapping Referring Multi-Object Tracking</b>
 **Abstract.**
 Referring multi-object tracking (RMOT) aims at detecting and tracking multiple objects following human instruction represented by a natural language expression. Existing RMOT benchmarks are usually formulated through manual annotations, integrated with static regulations. This approach results in a dearth of notable diversity and a constrained scope of implementation. In this work, our key idea is to bootstrap the task of referring multi-object tracking by introducing discriminative language words as much as possible. In specific, we first develop Refer-KITTI into a large-scale dataset, named Refer-KITTI-V2. It starts with 2,719 manual annotations, addressing the issue of class imbalance and introducing more keywords to make it closer to real-world scenarios compared to Refer-KITTI. They are further expanded to a total of 9,758 annotations by prompting large language models, which create 617 different words, surpassing previous RMOT benchmarks. In addition, the end-to-end framework in RMOT is also bootstrapped by a simple yet elegant temporal advancement strategy, which achieves better performance than previous approaches. 
 
-## Update
+## Updates
+- [2024.06.19] Refer-KITTI-V2 is released. Thanks for your patience :)
 - [2024.06.12] Code is released. Paper is released at [arXiv](http://arxiv.org/abs/2406.05039).
 
 ## Getting Started
@@ -22,6 +23,8 @@ Referring multi-object tracking (RMOT) aims at detecting and tracking multiple o
 
 The basic environment setup is on top of [MOTR](https://github.com/megvii-research/MOTR), including conda environment, pytorch version and other requirements. 
 
+### Dataset
+Please refer to the [guide](datasets/README.md) for downloading and organization.
 
 ### Training
 You can download COCO pretrained weights from [Deformable DETR](https://github.com/fundamentalvision/Deformable-DETR) ''+ iterative bounding box refinement''.
@@ -71,6 +74,7 @@ sh evaluate_rmot.sh
 
 
 ## Citation
+If you find TempRMOT or Refer-KITTI-V2 useful in your research, please consider citing:
 ```bibtex
 @article{zhang2024bootstrapping,
   title={Bootstrapping Referring Multi-Object Tracking},
