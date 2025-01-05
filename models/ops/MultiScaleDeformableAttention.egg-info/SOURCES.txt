@@ -1,7 +1,7 @@
 setup.py
-/home/zyn/Code/RMOT/models/ops/src/vision.cpp
-/home/zyn/Code/RMOT/models/ops/src/cpu/ms_deform_attn_cpu.cpp
-/home/zyn/Code/RMOT/models/ops/src/cuda/ms_deform_attn_cuda.cu
+/home/stud/shuaicong/forkProjects/TempRMOT/models/ops/src/vision.cpp
+/home/stud/shuaicong/forkProjects/TempRMOT/models/ops/src/cpu/ms_deform_attn_cpu.cpp
+/home/stud/shuaicong/forkProjects/TempRMOT/models/ops/src/cuda/ms_deform_attn_cuda.cu
 MultiScaleDeformableAttention.egg-info/PKG-INFO
 MultiScaleDeformableAttention.egg-info/SOURCES.txt
 MultiScaleDeformableAttention.egg-info/dependency_links.txt
