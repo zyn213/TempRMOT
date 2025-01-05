@@ -13,12 +13,12 @@
 
 python3 run_mot_challenge.py \
 --METRICS HOTA \
---SEQMAP_FILE /data_2/zyn/refer-kitti-v2/data_path/seqmap.txt \
+--SEQMAP_FILE /home/stud/shuaicong/forkProjects/TempRMOT/datasets/data_path/seqmap.txt \
 --SKIP_SPLIT_FOL True \
---GT_FOLDER /data/Dataset/refer-kitti/KITTI/training/image_02 \
---TRACKERS_FOLDER /data_2/zyn/Results4RK2/TempRMOT/default2/results_epoch49 \
+--GT_FOLDER /nfs/data3/shuaicong/refer-kitti-v2/KITTI/training/image_02 \
+--TRACKERS_FOLDER /nfs/data3/shuaicong/RMOT/outputs/default/results_epoch0 \
 --GT_LOC_FORMAT {gt_folder}{video_id}/{expression_id}/gt.txt \
---TRACKERS_TO_EVAL /data_2/zyn/Results4RK2/TempRMOT/default2/results_epoch49 \
+--TRACKERS_TO_EVAL /nfs/data3/shuaicong/RMOT/outputs/default/results_epoch0 \
 --USE_PARALLEL True \
 --NUM_PARALLEL_CORES 2 \
 --SKIP_SPLIT_FOL True \

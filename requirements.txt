@@ -6,3 +6,5 @@ motmetrics
 opencv-python
 seaborn
 lap
+transformers
+einops

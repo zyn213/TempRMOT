@@ -5,7 +5,7 @@
 # Copyright (c) 2020 SenseTime. All Rights Reserved.
 # ------------------------------------------------------------------------
 
-nohup python3 inference.py \
+python3 inference.py \
 --meta_arch temp_rmot \
 --dataset_file e2e_rmot \
 --epoch 200 \
@@ -26,5 +26,6 @@ nohup python3 inference.py \
 --query_interaction_layer QIM \
 --extra_track_attn \
 --hist_len 8 \
---resume exps/default/checkpoint0049.pth \
---output_dir exps/default >"exps/default/test_log.txt" & echo $! >"exps/default/test_pid.txt"
+--resume /nfs/data3/shuaicong/RMOT/checkpoint0.pth \
+--visualization \
+--output_dir /nfs/data3/shuaicong/RMOT/outputs/visualization \

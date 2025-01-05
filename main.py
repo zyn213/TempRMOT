@@ -157,7 +157,7 @@ def get_args_parser():
     parser.add_argument('--cache_mode', default=False, action='store_true', help='whether to cache images on memory')
 
     # end-to-end rmot settings.
-    parser.add_argument('--rmot_path', default='/data_2/zyn/refer-kitti-v2', type=str)
+    parser.add_argument('--rmot_path', default='/nfs/data3/shuaicong/refer-kitti-v2', type=str)
     parser.add_argument('--input_video', default='figs/demo.mp4', type=str)
     parser.add_argument('--data_txt_path_train',
                         default='./datasets/data_path/refer-kitti.train', type=str,

@@ -1,15 +1,14 @@
-PRETRAIN=/home/zyn/Data/MOTR/r50_deformable_detr_plus_iterative_bbox_refinement-checkpoint.pth
+PRETRAIN=/nfs/data3/shuaicong/RMOT/r50_deformable_detr_plus_iterative_bbox_refinement-checkpoint.pth
 EXP_DIR=default
-OUT='/home/zyn/Code/TempRMOT'
+OUT='/nfs/data3/shuaicong/RMOT/outputs'
 TRAIN_LOG_FILE="$OUT/${EXP_DIR}/train_log.txt"
 PID_FILE="$OUT/${EXP_DIR}/train_pid.txt"
 
 mkdir -p "$OUT/${EXP_DIR}"
 
-nohup python3  -m torch.distributed.launch --nproc_per_node=4 --master_port 29505 \
+python3  -m torch.distributed.launch --nproc_per_node=8 --master_port 29505 \
    --use_env main.py \
    --meta_arch temp_rmot \
-   --use_checkpoint \
    --dataset_file e2e_rmot \
    --epoch 60 \
    --with_box_refine \
@@ -32,6 +31,6 @@ nohup python3  -m torch.distributed.launch --nproc_per_node=4 --master_port 2950
    --query_interaction_layer QIM \
    --data_txt_path_train ./datasets/data_path/refer-kitti-v2.train \
    --hist_len 5 \
-   --refer_loss_coef 2 >"$TRAIN_LOG_FILE" & echo $! >"$PID_FILE"
+   --refer_loss_coef 2
 
 
