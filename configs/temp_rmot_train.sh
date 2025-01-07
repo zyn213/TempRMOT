@@ -6,9 +6,10 @@ PID_FILE="$OUT/${EXP_DIR}/train_pid.txt"
 
 mkdir -p "$OUT/${EXP_DIR}"
 
-python3  -m torch.distributed.launch --nproc_per_node=8 --master_port 29505 --use_env \
-   main.py \
+python3  -m torch.distributed.launch --nproc_per_node=8 --master_port 29505 \
+   --use_env main.py \
    --meta_arch temp_rmot \
+   --use_checkpoint \
    --dataset_file e2e_rmot \
    --epoch 60 \
    --with_box_refine \

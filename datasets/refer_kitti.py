@@ -199,7 +199,7 @@ class DetMOTDetection:
 
         img_path = self.img_files[sample_start]
 
-        if 'KITTI' in img_path:
+        if 'OVIS' in img_path:
             video_id = img_path.split('/')[-2]
             expression_list = os.listdir(osp.join(self.args.rmot_path, 'expression', video_id))
             expression_random = random.choice(expression_list) # 某张照片随便获取一个语义表达式

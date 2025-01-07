@@ -52,6 +52,8 @@ def get_args_parser():
                         help='gradient clipping max norm')
 
     parser.add_argument('--meta_arch', default='deformable_detr', type=str)
+    parser.add_argument("--debug", action="store_true",
+                        help="debug (fast) mode, break all loops, do not load all data into memory.")
 
     parser.add_argument('--sgd', action='store_true')
 
