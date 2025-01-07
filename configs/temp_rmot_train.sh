@@ -1,13 +1,13 @@
 PRETRAIN=/nfs/data3/shuaicong/RMOT/r50_deformable_detr_plus_iterative_bbox_refinement-checkpoint.pth
-EXP_DIR=default
+EXP_DIR=ovis
 OUT='/nfs/data3/shuaicong/RMOT/outputs'
 TRAIN_LOG_FILE="$OUT/${EXP_DIR}/train_log.txt"
 PID_FILE="$OUT/${EXP_DIR}/train_pid.txt"
 
 mkdir -p "$OUT/${EXP_DIR}"
 
-python3  -m torch.distributed.launch --nproc_per_node=8 --master_port 29505 \
-   --use_env main.py \
+python3  -m torch.distributed.launch --nproc_per_node=8 --master_port 29505 --use_env \
+   main.py \
    --meta_arch temp_rmot \
    --dataset_file e2e_rmot \
    --epoch 60 \
@@ -29,7 +29,7 @@ python3  -m torch.distributed.launch --nproc_per_node=8 --master_port 29505 \
    --random_drop 0.1 \
    --fp_ratio 0.3 \
    --query_interaction_layer QIM \
-   --data_txt_path_train ./datasets/data_path/refer-kitti-v2.train \
+   --data_txt_path_train ./datasets/data_path/refer-ovis.train \
    --hist_len 5 \
    --refer_loss_coef 2
 
