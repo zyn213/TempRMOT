@@ -137,8 +137,8 @@ class DetMOTDetection:
         video_name = '/'.join(label_path.split('/')[:-1])
         obj_idx_offset = self.video_dict[video_name] * 1000000  # 1000000 unique ids is enough for a video.
 
-        if 'KITTI' in img_path:
-            targets['dataset'] = 'KITTI'
+        if 'OVIS' in img_path:
+            targets['dataset'] = 'OVIS'
         else:
             raise NotImplementedError()
 
@@ -201,9 +201,9 @@ class DetMOTDetection:
 
         if 'OVIS' in img_path:
             video_id = img_path.split('/')[-2]
-            expression_list = os.listdir(osp.join(self.args.rmot_path, 'expression', video_id))
+            expression_list = os.listdir(osp.join(self.args.rmot_path, 'expression/training', video_id))
             expression_random = random.choice(expression_list) # 某张照片随便获取一个语义表达式
-            expression_path = osp.join(self.args.rmot_path, 'expression', video_id, expression_random)
+            expression_path = osp.join(self.args.rmot_path, 'expression/training', video_id, expression_random)
             with open(expression_path, 'r') as f:
                 expression_info = json.load(f)
             sentence = [expression_info['sentence']]
@@ -275,7 +275,7 @@ def make_transforms_for_kitti(image_set, args=None):
 def build_dataset2transform(args, image_set):
 
     kitti_train = make_transforms_for_kitti('train', args)
-    dataset2transform_train = {'KITTI': kitti_train}
+    dataset2transform_train = {'OVIS': kitti_train}
     if image_set == 'train':
         return dataset2transform_train
     else:

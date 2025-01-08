@@ -162,7 +162,7 @@ def get_args_parser():
     parser.add_argument('--rmot_path', default='/nfs/data3/shuaicong/refer-ovis', type=str)
     parser.add_argument('--input_video', default='figs/demo.mp4', type=str)
     parser.add_argument('--data_txt_path_train',
-                        default='./datasets/data_path/refer-kitti.train', type=str,
+                        default='./datasets/data_path/refer-ovis-9.train', type=str,
                         help="path to dataset txt split")
     parser.add_argument('--img_path', default='data/valid/JPEGImages/')
 
@@ -336,7 +336,7 @@ def main(args):
         if args.output_dir:
             checkpoint_paths = [output_dir / 'checkpoint.pth']
             # extra checkpoint before LR drop and every 5 epochs
-            if epoch >30 and (epoch + 1) % 10 == 0:
+            if epoch > 30 and (epoch + 1) % 10 == 0:
                 checkpoint_paths.append(output_dir / f'checkpoint{epoch:04}.pth')
             for checkpoint_path in checkpoint_paths:
                 utils.save_on_master({
