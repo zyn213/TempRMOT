@@ -950,9 +950,13 @@ def build(args):
         'e2e_rmot': 1,
         'e2e_dance': 1,
         'e2e_t2t': 1,
+        'ovis': 25,
+        'mot17': 1,
+        'mot20': 1
     }
     assert args.dataset_file in dataset_to_num_classes
     num_classes = dataset_to_num_classes[args.dataset_file]
+    print(f'num_classes: {num_classes}')
     device = torch.device(args.device)
 
     backbone = build_backbone(args)

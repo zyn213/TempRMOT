@@ -26,6 +26,7 @@ python3 inference.py \
 --query_interaction_layer QIM \
 --extra_track_attn \
 --hist_len 8 \
---resume /nfs/data3/shuaicong/RMOT/checkpoint0.pth \
+--resume exps/ovis_with_scales/checkpoint0059.pth \
+--rmot_path /nfs/data3/shuaicong/refer-ovis \
 --visualization \
---output_dir /nfs/data3/shuaicong/RMOT/outputs/visualization \
+--output_dir exps/ovis_with_scales_0.4 \

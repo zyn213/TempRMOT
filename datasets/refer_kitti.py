@@ -118,7 +118,7 @@ class DetMOTDetection:
         assert w > 0 and h > 0, "invalid image {} with shape {} {}".format(img_path, w, h)
         if osp.isfile(label_path):
             labels0 = np.loadtxt(label_path, dtype=np.float32).reshape(-1, 6)
-            if 'KITTI' in label_path:
+            if 'OVIS' in label_path:
                 # normalized x1y1wh to pixel xyxy format
                 labels = labels0.copy()
                 labels[:, 2] = w * (labels0[:, 2])
@@ -271,10 +271,40 @@ def make_transforms_for_kitti(image_set, args=None):
 
     raise ValueError(f'unknown {image_set}')
 
+def make_transforms_for_ovis(image_set, args=None):
+
+    normalize = T.MotCompose([
+        T.MotToTensor(),
+        T.MotNormalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
+    ])
+    scales = [288, 320, 352, 392, 416, 448, 480, 512]
+
+    if image_set == 'train':
+        return T.MotCompose([
+            T.MotRandomSelect(
+                T.MotRandomResize(scales, max_size=768),
+                T.MotCompose([
+                    T.MotRandomResize([400, 500, 600]),
+                    T.FixedMotRandomCrop(384, 600),
+                    T.MotRandomResize(scales, max_size=768),
+                ])
+            ),
+            normalize,
+        ])
+
+    if image_set == 'val':
+        return T.MotCompose([
+            # T.MotRandomResize([800], max_size=1333),
+            T.RandomResize([360], max_size=640),
+            normalize,
+        ])
+
+    raise ValueError(f'unknown {image_set}')
+
 
 def build_dataset2transform(args, image_set):
 
-    kitti_train = make_transforms_for_kitti('train', args)
+    kitti_train = make_transforms_for_ovis('train', args)
     dataset2transform_train = {'OVIS': kitti_train}
     if image_set == 'train':
         return dataset2transform_train
