@@ -13,12 +13,12 @@
 
 python3 run_mot_challenge.py \
 --METRICS HOTA \
---SEQMAP_FILE /home/stud/shuaicong/forkProjects/TempRMOT/datasets/data_path/seqmap.txt \
+--SEQMAP_FILE /home/stud/shuaicong/forkProjects/TempRMOT/datasets/data_path/seqmap_ovis.txt \
 --SKIP_SPLIT_FOL True \
---GT_FOLDER /nfs/data3/shuaicong/refer-kitti-v2/KITTI/training/image_02 \
---TRACKERS_FOLDER /nfs/data3/shuaicong/RMOT/outputs/default/results_epoch0 \
+--GT_FOLDER /nfs/data3/shuaicong/refer-ovis/OVIS/valid \
+--TRACKERS_FOLDER /nfs/data3/shuaicong/RMOT/outputs/ovis_with_checkpoint0_5_epochs_0.4_0.3_v3/results_epoch5 \
 --GT_LOC_FORMAT {gt_folder}{video_id}/{expression_id}/gt.txt \
---TRACKERS_TO_EVAL /nfs/data3/shuaicong/RMOT/outputs/default/results_epoch0 \
+--TRACKERS_TO_EVAL /nfs/data3/shuaicong/RMOT/outputs/ovis_with_checkpoint0_5_epochs_0.4_0.3_v3/results_epoch5 \
 --USE_PARALLEL True \
 --NUM_PARALLEL_CORES 2 \
 --SKIP_SPLIT_FOL True \

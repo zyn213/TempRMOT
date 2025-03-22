@@ -955,8 +955,8 @@ def build(args):
         'mot20': 1
     }
     assert args.dataset_file in dataset_to_num_classes
-    num_classes = dataset_to_num_classes[args.dataset_file]
-    print(f'num_classes: {num_classes}')
+    # num_classes = dataset_to_num_classes[args.dataset_file]
+    num_classes = 1
     device = torch.device(args.device)
 
     backbone = build_backbone(args)
