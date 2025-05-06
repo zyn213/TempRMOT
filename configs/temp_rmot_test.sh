@@ -29,4 +29,4 @@ python3 inference.py \
 --resume /nfs/data3/shuaicong/RMOT/outputs/ovis_with_checkpoint0_5_epochs/checkpoint05.pth \
 --rmot_path /nfs/data3/shuaicong/refer-ovis \
 --visualization \
---output_dir /nfs/data3/shuaicong/RMOT/outputs/ovis_with_checkpoint0_5_epochs_0.4_0.3_v3 \
+--output_dir /nfs/data3/shuaicong/RMOT/outputs/ovis_with_checkpoint0_5_epochs_0.4_0.3_v4 \

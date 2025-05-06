@@ -1,6 +1,6 @@
-PRETRAIN=/nfs/data3/shuaicong/RMOT/checkpoint0.pth
-EXP_DIR=ovis_with_checkpoint0_5_epochs
-OUT='/nfs/data3/shuaicong/RMOT/outputs'
+PRETRAIN=/nfs/data3/shuaicong/RMOT/r50_deformable_detr_plus_iterative_bbox_refinement-checkpoint.pth
+EXP_DIR=ovis_final_1
+OUT='/nfs/data3/shuaicong/TempRMOT/outputs'
 TRAIN_LOG_FILE="$OUT/${EXP_DIR}/train_log.txt"
 PID_FILE="$OUT/${EXP_DIR}/train_pid.txt"
 
@@ -36,6 +36,6 @@ python3  -m torch.distributed.launch --nproc_per_node=8 --master_port 29505 \
    --data_txt_path_train ./datasets/data_path/refer-ovis.train \
    --hist_len 5 \
    --refer_loss_coef 2 \
-   --rmot_path /nfs/data3/shuaicong/refer-ovis | tee -a ${TRAIN_LOG_FILE}
+   --rmot_path /nfs/data3/shuaicong/TempRMOT/refer-ovis | tee -a ${TRAIN_LOG_FILE}
 
 

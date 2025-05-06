@@ -334,9 +334,11 @@ def main(args):
             model, criterion, data_loader_train, optimizer, device, epoch, args.clip_max_norm, writer)
         lr_scheduler.step()
         if args.output_dir:
+            # checkpoint.pth is the latest checkpoint, older one will be covered.
             checkpoint_paths = [output_dir / 'checkpoint.pth']
             # extra checkpoint before LR drop and every 5 epochs
             if epoch > 30 and (epoch + 1) % 10 == 0:
+                # checkpoint{epoch:04}.pth is for the certain epoch, e.g. 39th, 49th, 59th.
                 checkpoint_paths.append(output_dir / f'checkpoint{epoch:04}.pth')
             for checkpoint_path in checkpoint_paths:
                 utils.save_on_master({

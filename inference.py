@@ -80,7 +80,7 @@ def plot_one_box(x, img, color=None, label=None, score=None, line_thickness=None
 
     # tl = line_thickness or round(
     #     0.002 * max(img.shape[0:2])) + 1  # line thickness
-    tl = 2
+    tl = 10
     color = color or [random.randint(0, 255) for _ in range(3)]
     c1, c2 = (int(x[0]), int(x[1])), (int(x[2]), int(x[3]))
     cv2.rectangle(img.numpy(), c1, c2, color, thickness=tl)
@@ -344,8 +344,8 @@ class Detector(object):
         # self.tr_tracker_withouRef = TransRMOT()
         self.save_path = os.path.join(self.args.output_dir,
                                       'results_epoch{}/{}/{}'.format(checkpoint_id, seq_num[0], seq_num[1].split('.')[0]))
-        if os.path.exists(self.save_path):
-            shutil.rmtree(self.save_path)
+        # if os.path.exists(self.save_path):
+        #     shutil.rmtree(self.save_path)
         os.makedirs(self.save_path, exist_ok=True)
 
         self.predict_path = os.path.join(self.args.output_dir, self.args.exp_name)
@@ -424,7 +424,7 @@ class Detector(object):
         #     img_show = draw_bboxes(img_show, gt_boxes, identities=np.ones((len(gt_boxes),)) * -1)
         cv2.imwrite(img_path, cv2.cvtColor(img_show.numpy(), cv2.COLOR_RGB2BGR))
 
-    def detect(self, prob_threshold=0.4, area_threshold=100):
+    def detect(self, prob_threshold=0.6, area_threshold=100):
         last_dt_embedding = None
         total_dts = 0
         total_occlusion_dts = 0
@@ -453,7 +453,7 @@ class Detector(object):
             dt_instances = self.filter_dt_by_area(dt_instances, area_threshold)
 
             # filter det instances by refer scores
-            dt_instances = self.filter_dt_by_ref_scores(dt_instances, 0.3)
+            dt_instances = self.filter_dt_by_ref_scores(dt_instances, 0.4)
 
             num_occlusion = (dt_instances.labels == 1).sum()
             dt_instances.scores[dt_instances.labels == 1] *= -1
@@ -473,8 +473,16 @@ class Detector(object):
                                bbox_xyxy=tracker_outputs[:, :4],
                                identities=tracker_outputs[:, 5])
         gt_path = os.path.join(self.save_path, 'gt.txt')
-        self.write_gt(gt_path, self.json_path,
-                      os.path.join(self.args.rmot_path, 'OVIS/labels_with_ids/test', self.seq_num[0]), seq_h, seq_w)
+        if self.args.rmot_path in 'refer-ovis':
+            self.write_gt(gt_path, self.json_path,
+                          os.path.join(self.args.rmot_path, 'OVIS/labels_with_ids/valid', self.seq_num[0]), seq_h, seq_w)
+        if self.args.rmot_path == 'refer-mot17':
+            self.write_gt(gt_path, self.json_path,
+                          os.path.join(self.args.rmot_path, 'MOT17/labels_with_ids/valid', self.seq_num[0]), seq_h, seq_w)
+        if self.args.rmot_path == 'refer-mot20':
+            self.write_gt(gt_path, self.json_path,
+                          os.path.join(self.args.rmot_path, 'MOT20/labels_with_ids/valid', self.seq_num[0]), seq_h, seq_w)
+
         print("totally {} dts {} occlusion dts".format(total_dts, total_occlusion_dts))
 
 def sub_processor(pid,seq_nums,args):
@@ -505,6 +513,7 @@ if __name__ == '__main__':
     if "refer-kitti-v2" in args0.rmot_path:
         video_ids = ['0005', '0011', '0013','0019']
     elif "refer-ovis" in args0.rmot_path:
+        # 137 valid videos
         video_ids = ['c34989e3', 'ac8ecb27', 'af48b2f9', '15e09c8c', '505ed57c', '7223bf62', 'c9a2645e', '2112a80d',
                      'fb57abac', 'f10e23dd', '48cd08af', '1a4b95d3', '63263f3f', '6a47103e', '2a02f752', '9069547d',
                      '2d802cb8', '68d9fb6a', '95a50b7d', '2ca20519', 'e7ef3b9d', 'ed82ce50', '0299d8d6', 'd33e1c97',
@@ -523,6 +532,10 @@ if __name__ == '__main__':
                      '1220b722', '454c7bb5', '44a4d836', '957c33a7', '0d0030a7', 'aa8df541', 'fb4a7958', 'c29ce49d',
                      '6312935f', '817263d6', 'c9dfbd0c', '1123fd76', 'cfe04aff', '6c88a53b', 'f326bfb7', '7e52df6a',
                      'ebd1dbad']
+    elif "refer-mot17" in args0.rmot_path:
+        video_ids = ['MOT17-01', 'MOT17-03', 'MOT17-06', 'MOT17-07', 'MOT17-08', 'MOT17-12', 'MOT17-14']
+    elif "refer-mot20" in args0.rmot_path:
+        video_ids = ['MOT20-03', 'MOT20-05']
     else:
         video_ids = ['0005', '0011', '0013']
 
@@ -532,7 +545,7 @@ if __name__ == '__main__':
         for expression_json in expression_jsons:
             seq_nums.append([video_id, expression_json])
 
-    thread_num = 8
+    thread_num = 4
     processes = []
 
     expression_num = len(seq_nums)
