@@ -51,6 +51,9 @@ from torch.utils.data import Dataset, DataLoader
 
 import multiprocessing as mp
 import threading
+import time
+import datetime
+
 
 np.random.seed(2020)
 
@@ -327,13 +330,27 @@ class Detector(object):
         self.checkpoint_id = checkpoint_id
 
         self.seq_num = seq_num
-        img_list = os.listdir(os.path.join(self.args.rmot_path, 'OVIS/valid', self.seq_num[0]))
-        img_list = [os.path.join(self.args.rmot_path, 'OVIS/valid', self.seq_num[0], _)
-                    for _ in img_list if ('jpg' in _) or ('png' in _)]
+        if 'refer-ovis' in args.rmot_path:
+            img_list = os.listdir(os.path.join(self.args.rmot_path, 'OVIS/valid', self.seq_num[0]))
+            img_list = [os.path.join(self.args.rmot_path, 'OVIS/valid', self.seq_num[0], _)
+                        for _ in img_list if ('jpg' in _) or ('png' in _)]
+        elif 'refer-mot17' in args.rmot_path:
+            img_list = os.listdir(os.path.join(self.args.rmot_path, 'MOT17/valid', self.seq_num[0]))
+            img_list = [os.path.join(self.args.rmot_path, 'MOT17/valid', self.seq_num[0], _)
+                        for _ in img_list if ('jpg' in _) or ('png' in _)]
+        elif 'refer-mot20' in args.rmot_path:
+            img_list = os.listdir(os.path.join(self.args.rmot_path, 'MOT20/valid', self.seq_num[0]))
+            img_list = [os.path.join(self.args.rmot_path, 'MOT20/valid', self.seq_num[0], _)
+                        for _ in img_list if ('jpg' in _) or ('png' in _)]
+        else:
+            img_list = os.listdir(os.path.join(self.args.rmot_path, 'KITTI/training/image_02', self.seq_num[0]))
+            img_list = [os.path.join(self.args.rmot_path, 'KITTI/training/image_02', self.seq_num[0], _)
+                        for _ in img_list if ('jpg' in _) or ('png' in _)]
 
         self.img_list = sorted(img_list)
         self.img_len = len(self.img_list)
 
+        # seq_num[0] = video_name, e.g. MOT20-03, seq_num[1] = query, e.g. the-wheelchair-goes-right.json
         self.json_path = os.path.join(self.args.rmot_path, 'expression/valid', seq_num[0], seq_num[1])
         with open(self.json_path, 'r') as f:
             json_info = json.load(f)
@@ -424,7 +441,7 @@ class Detector(object):
         #     img_show = draw_bboxes(img_show, gt_boxes, identities=np.ones((len(gt_boxes),)) * -1)
         cv2.imwrite(img_path, cv2.cvtColor(img_show.numpy(), cv2.COLOR_RGB2BGR))
 
-    def detect(self, prob_threshold=0.6, area_threshold=100):
+    def detect(self, prob_threshold=0.4, area_threshold=100):
         last_dt_embedding = None
         total_dts = 0
         total_occlusion_dts = 0
@@ -448,12 +465,12 @@ class Detector(object):
             all_ref_pts = tensor_to_numpy(res['ref_pts'][0, :, :2])
             dt_instances = track_instances.to(torch.device('cpu'))
 
-            # filter det instances by score.
+            # filter det instances by score. (visual detections)
             dt_instances = self.filter_dt_by_score(dt_instances, prob_threshold)
             dt_instances = self.filter_dt_by_area(dt_instances, area_threshold)
 
-            # filter det instances by refer scores
-            dt_instances = self.filter_dt_by_ref_scores(dt_instances, 0.4)
+            # filter det instances by refer scores (query matching)
+            dt_instances = self.filter_dt_by_ref_scores(dt_instances, 0.3)
 
             num_occlusion = (dt_instances.labels == 1).sum()
             dt_instances.scores[dt_instances.labels == 1] *= -1
@@ -473,13 +490,13 @@ class Detector(object):
                                bbox_xyxy=tracker_outputs[:, :4],
                                identities=tracker_outputs[:, 5])
         gt_path = os.path.join(self.save_path, 'gt.txt')
-        if self.args.rmot_path in 'refer-ovis':
+        if 'refer-ovis' in self.args.rmot_path:
             self.write_gt(gt_path, self.json_path,
                           os.path.join(self.args.rmot_path, 'OVIS/labels_with_ids/valid', self.seq_num[0]), seq_h, seq_w)
-        if self.args.rmot_path == 'refer-mot17':
+        if 'refer-mot17' in self.args.rmot_path:
             self.write_gt(gt_path, self.json_path,
                           os.path.join(self.args.rmot_path, 'MOT17/labels_with_ids/valid', self.seq_num[0]), seq_h, seq_w)
-        if self.args.rmot_path == 'refer-mot20':
+        if 'refer-mot20' in self.args.rmot_path:
             self.write_gt(gt_path, self.json_path,
                           os.path.join(self.args.rmot_path, 'MOT20/labels_with_ids/valid', self.seq_num[0]), seq_h, seq_w)
 
@@ -535,7 +552,8 @@ if __name__ == '__main__':
     elif "refer-mot17" in args0.rmot_path:
         video_ids = ['MOT17-01', 'MOT17-03', 'MOT17-06', 'MOT17-07', 'MOT17-08', 'MOT17-12', 'MOT17-14']
     elif "refer-mot20" in args0.rmot_path:
-        video_ids = ['MOT20-03', 'MOT20-05']
+        video_ids = ['MOT20-03']
+        # video_ids = ['MOT20-03', 'MOT20-05']
     else:
         video_ids = ['0005', '0011', '0013']
 
@@ -552,6 +570,8 @@ if __name__ == '__main__':
     per_thread_seq_num = expression_num // thread_num
 
     print("Start inference")
+    start_time = time.time()
+
     for i in range(thread_num):
         if i == thread_num -1:
             sub_seq_list = seq_nums[i*per_thread_seq_num:]
@@ -565,3 +585,6 @@ if __name__ == '__main__':
         p.join()
 
     print("Over")
+    total_time = time.time() - start_time
+    total_time_str = str(datetime.timedelta(seconds=int(total_time)))
+    print('Inference time {}'.format(total_time_str))

@@ -175,15 +175,23 @@ class MotChallenge2DBox(_BaseDataset):
                     seq = row[0].split('+')[0]
                     seq_list.append(row[0])
                     # ini_file = os.path.join('/data/Dadataset')
-                    if 'MOT' in seq:
-                        ini_file = os.path.join(self.gt_fol, seq, 'seqinfo.ini')
-                        if not os.path.isfile(ini_file):
-                            raise TrackEvalException('ini file does not exist: ' + seq + '/' + os.path.basename(ini_file))
-                        ini_data = configparser.ConfigParser()
-                        ini_data.read(ini_file)
-                        seq_lengths[row[0]] = int(ini_data['Sequence']['seqLength'])
+                    # if 'MOT' in seq:
+                    #     ini_file = os.path.join(self.gt_fol, seq, 'seqinfo.ini')
+                    #     if not os.path.isfile(ini_file):
+                    #         raise TrackEvalException('ini file does not exist: ' + seq + '/' + os.path.basename(ini_file))
+                    #     ini_data = configparser.ConfigParser()
+                    #     ini_data.read(ini_file)
+                    #     seq_lengths[row[0]] = int(ini_data['Sequence']['seqLength'])
+                    if 'MOT17' in seq:
+                        img_path = os.path.join('/nfs/data3/shuaicong/TempRMOT/refer-mot17/MOT17/valid', seq)
+                        img_list = os.listdir(img_path)
+                        seq_lengths[row[0]] = int(len(img_list))
+                    elif 'MOT20' in seq:
+                        img_path = os.path.join('/nfs/data3/shuaicong/TempRMOT/refer-mot20/MOT20/valid', seq)
+                        img_list = os.listdir(img_path)
+                        seq_lengths[row[0]] = int(len(img_list))
                     else:
-                        img_path = os.path.join('/nfs/data3/shuaicong/refer-ovis/OVIS/valid', seq)
+                        img_path = os.path.join('/nfs/data3/shuaicong/TempRMOT/refer-ovis/OVIS/valid', seq)
                         img_list = os.listdir(img_path)
                         seq_lengths[row[0]] = int(len(img_list))
         return seq_list, seq_lengths

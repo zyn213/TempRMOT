@@ -319,7 +319,9 @@ def main(args):
     print("Start training")
     start_time = time.time()
 
+    # 取路径除开/后的第一个值
     writer_name = args.output_dir.split('/')[1]
+    writer_name = os.path.basename(args.output_dir.rstrip('/'))
     writer_name = os.path.join('./log', writer_name)
     writer = SummaryWriter(writer_name)
 

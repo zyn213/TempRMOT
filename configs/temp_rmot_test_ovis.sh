@@ -29,4 +29,4 @@ python3 inference.py \
 --resume /nfs/data3/shuaicong/TempRMOT/outputs/ovis_final_1/checkpoint0005.pth \
 --rmot_path /nfs/data3/shuaicong/TempRMOT/refer-ovis \
 --visualization \
---output_dir /nfs/data3/shuaicong/TempRMOT/outputs/ovis_final_1/infenrence/threshold_0.6_0.4 \
+--output_dir /nfs/data3/shuaicong/TempRMOT/outputs/ovis_final_1/infenrence/threshold_0.4_0.3_e5 \
