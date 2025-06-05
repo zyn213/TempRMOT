@@ -57,27 +57,52 @@ def copy_matched_json_files(txt_path, source_dir, target_dir):
 
     print(f"\n✅ 共复制 {count} 个 JSON 文件到: {target_dir}")
 
+def check_gt_predict(folder_dir, output_txt):
+    missing_folders = []
+
+    # 遍历所有子文件夹
+    for root, dirs, files in os.walk(folder_dir):
+        for dir_name in dirs:
+            subfolder_path = os.path.join(root, dir_name)
+            gt_path = os.path.join(subfolder_path, 'gt.txt')
+            predict_path = os.path.join(subfolder_path, 'predict.txt')
+
+            # 检查是否缺少文件
+            if not os.path.isfile(gt_path) or not os.path.isfile(predict_path):
+                print(f"Missing files in: {subfolder_path}")
+                missing_folders.append(subfolder_path)
+
+    # 保存到文件中
+    with open(output_txt, 'w') as f:
+        for folder in missing_folders:
+            f.write(folder + '\n')
+
+    print(f"Done. Missing folder list saved to: {output_txt}")
 
 # 示例调用
 if __name__ == "__main__":
 
     print("当前工作目录是：", os.getcwd())
+    json_dir = '/nfs/data3/shuaicong/TempRMOT/refer-mot20/expression/valid/MOT20-03-all'
+    folder_dir = '/nfs/data3/shuaicong/RMOT/outputs/mot20/final1/results_epoch59/MOT20-03'
+    output_txt = 'unmatched_json_names_mot20-03-1.txt'
+    output_txt_missing_files = 'missing_gt_predict-mot20-03.txt'
+    check_gt_predict(folder_dir, output_txt_missing_files)
+    find_unmatched_json_files(json_dir, folder_dir, output_txt)
 
-    # json_dir = '/nfs/data3/shuaicong/TempRMOT/refer-mot20/expression/valid/MOT20-03'
-    # folder_dir = '/nfs/data3/shuaicong/RMOT/outputs/mot20/final1/results_epoch59/MOT20-03'
-    # output_txt = 'unmatched_json_names_mot20-03.txt'
-    # unmatched = find_unmatched_json_files(json_dir, folder_dir, output_txt)
-    # json_dir = '/nfs/data3/shuaicong/TempRMOT/refer-mot20/expression/valid/MOT20-05'
-    # folder_dir = '/nfs/data3/shuaicong/RMOT/outputs/mot20/final1/results_epoch59/MOT20-05'
-    # output_txt = 'unmatched_json_names_mot20-05.txt'
-    # unmatched = find_unmatched_json_files(json_dir, folder_dir, output_txt)
+    json_dir = '/nfs/data3/shuaicong/TempRMOT/refer-mot20/expression/valid/MOT20-05-all'
+    folder_dir = '/nfs/data3/shuaicong/RMOT/outputs/mot20/final1/results_epoch59/MOT20-05'
+    output_txt = 'unmatched_json_names_mot20-05-1.txt'
+    output_txt_missing_files = 'missing_gt_predict-mot20-05.txt'
+    check_gt_predict(folder_dir, output_txt_missing_files)
+    find_unmatched_json_files(json_dir, folder_dir, output_txt)
 
-    txt_file = 'unmatched_json_names_mot20-03.txt'
+    txt_file = 'unmatched_json_names_mot20-03-1.txt'
     source_dir = '/nfs/data3/shuaicong/TempRMOT/refer-mot20/expression/valid/MOT20-03-all'
     target_dir = '/nfs/data3/shuaicong/TempRMOT/refer-mot20/expression/valid/MOT20-03'
     copy_matched_json_files(txt_file, source_dir, target_dir)
 
-    txt_file = 'unmatched_json_names_mot20-05.txt'
+    txt_file = 'unmatched_json_names_mot20-05-1.txt'
     source_dir = '/nfs/data3/shuaicong/TempRMOT/refer-mot20/expression/valid/MOT20-05-all'
     target_dir = '/nfs/data3/shuaicong/TempRMOT/refer-mot20/expression/valid/MOT20-05'
     copy_matched_json_files(txt_file, source_dir, target_dir)

@@ -477,7 +477,7 @@ class Detector(object):
             total_dts += len(dt_instances)
             total_occlusion_dts += num_occlusion
 
-            if self.args.visualization and total_dts > 0:
+            if self.args.visualization and len(dt_instances) > 0:
                 # for visual
                 cur_vis_img_path = os.path.join(self.save_path, 'frame_{}.jpg'.format(i+1))
                 gt_boxes = None
