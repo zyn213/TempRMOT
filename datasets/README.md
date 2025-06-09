@@ -1,27 +1,29 @@
-## Prepare Refer-KITTI Data
-### Refer-KITTI-V2
+## Prepare Refer-X Data
+### Refer-OVIS & Refer-MOT17 & Refer-MOT20
 Detailed steps are shown as follows.
 
-1. Download the official KITTI images from [official website](https://www.cvlibs.net/datasets/kitti/eval_tracking.php).
+1. Download the official OVIS images from [official website](https://songbai.site/ovis/).
+2. Download the official MOT17 images from [official website](https://motchallenge.net/data/MOT17/).
+3. Download the official MOT20 images from [official website](https://motchallenge.net/data/MOT20/).
+4. Download our created expression and labels_with_ids from [Google Drive](https://drive.google.com/drive/folders/1audIierM6JlN1FqFI37HNomj5fgADQQB?usp=sharing).
 
-2. Download our created expression and labels_with_ids from [Google Drive](https://drive.google.com/drive/folders/1eaxuRK-ewl0cpGshOxylSFZ5PPu3_WUT?usp=sharing).
 
-
-The directory structure should be as below.
+The directory structure should be as below, e.g., refer-ovis.
 ```
 .
-├── refer-kitti-v2
-│   ├── KITTI
+├── refer-ovis
+│   ├── OVIS
 │           ├── training
+│           ├── valid
 │           ├── labels_with_ids
+│           │   ├── valid
 │   └── expression
+│           ├── training
+│           ├── valid
 ```
 Note: 
 - Our expression (.json) contains corresponding object ids, and the corresponding boxes can be found in 'labels_with_ids' using these ids.
-- We have **corrected and regenerated** labels_with_ids, so please download from Google Drive instead of using data from Refer-KITTI.
-
-### Refer-KITTI
-Please refer to the [official website](https://github.com/wudongming97/RMOT) to downloading and organization the Refer-KITTI dataset.
+- refer-mot17 and refer-mot20 have the same directory structure as refer-ovis.
 
 ## Data Format
 Each manually annotated expression file is structured like this :

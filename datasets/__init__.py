@@ -26,7 +26,7 @@ def get_coco_api_from_dataset(dataset):
 
 
 def build_dataset(image_set, args):
-    if args.dataset_file == 'e2e_rmot' or args.dataset_file == 'ovis':
+    if args.dataset_file == 'e2e_rmot':
         return build_rmot(image_set, args)
         # return build_rmot_plus(image_set, args)
         

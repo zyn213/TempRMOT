@@ -530,7 +530,6 @@ ed5ec3c5+the-turtle-takes-a-left-turn
 2b827e3a+bike-is-jumping
 1ef6cb7b+a-bird-is-no-longer-flying
 1ef6cb7b+bird-is-flying-towards-the-right-side
-1ef6cb7b+bird-refrains-from-flying
 1ef6cb7b+bird-avoids-from-flying
 a16e9661+the-bull-moves-to-the-left
 a16e9661+a-bull-heads-to-the-right

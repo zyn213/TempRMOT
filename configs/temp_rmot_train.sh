@@ -13,15 +13,15 @@ python3  -m torch.distributed.launch --nproc_per_node=8 --master_port 29505 \
    --use_env main.py \
    --meta_arch temp_rmot \
    --use_checkpoint \
-   --dataset_file ovis \
+   --dataset_file e2e_rmot \
    --epoch 60 \
    --with_box_refine \
    --lr_drop 40 \
    --lr 1e-4 \
    --lr_backbone 1e-5 \
    --pretrained ${PRETRAIN}\
-   --output_dir exps/${EXP_DIR} \
-   --save_dir exps/${EXP_DIR} \
+   --output_dir $OUT/${EXP_DIR} \
+   --save_dir $OUT/${EXP_DIR} \
    --batch_size 1 \
    --sample_mode random_interval \
    --sample_interval 1 \

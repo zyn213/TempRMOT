@@ -7,7 +7,7 @@
 
 python3 inference.py \
 --meta_arch temp_rmot \
---dataset_file ovis \
+--dataset_file e2e_rmot \
 --epoch 200 \
 --with_box_refine \
 --lr_drop 100 \
@@ -26,7 +26,7 @@ python3 inference.py \
 --query_interaction_layer QIM \
 --extra_track_attn \
 --hist_len 8 \
---resume /nfs/data3/shuaicong/RMOT/outputs/ovis_with_checkpoint0_5_epochs/checkpoint05.pth \
+--resume /nfs/data3/shuaicong/RMOT/outputs/ovis/checkpoint0059.pth \
 --rmot_path /nfs/data3/shuaicong/refer-ovis \
 --visualization \
---output_dir /nfs/data3/shuaicong/RMOT/outputs/ovis_with_checkpoint0_5_epochs_0.4_0.3_v4 \
+--output_dir /nfs/data3/shuaicong/RMOT/outputs/ovis \
